@@ -3,6 +3,8 @@ import UIfx from "uifx";
 import sound1 from "../assets/sound1.mp3";
 import sound2 from "../assets/sound2.mp3";
 import { MyButton } from "./Components";
+import { Clock } from "./Clock";
+import { formatTime } from "../formatter";
 
 const s1 = new UIfx(sound1);
 const s2 = new UIfx(sound2);
@@ -12,12 +14,12 @@ export class Timer extends Component {
     duration: 25 * 60,
     seconds: 25 * 60,
     timerActive: false,
-    time: 0,
   };
   mouseActive = false;
   playedTimeStamps = [];
 
   componentDidMount() {
+    console.log("Timer did mount");
     this.update();
     setInterval(this.update, 1000);
     this.resetTimer();
@@ -33,8 +35,6 @@ export class Timer extends Component {
   };
 
   update = () => {
-    let d = new Date();
-    this.setState({ time: d.getHours() * 60 + d.getMinutes() });
     if (this.state.timerActive && this.state.seconds > 0) {
       this.setState({ seconds: this.state.seconds - 1 });
     }
@@ -69,14 +69,6 @@ export class Timer extends Component {
     })();
   };
 
-  getFormattedTime = (seconds) => {
-    let mins = Math.floor(seconds / 60) + "";
-    if (mins.length === 1) mins = "0" + mins;
-    let secs = (seconds % 60) + "";
-    if (secs.length === 1) secs = "0" + secs;
-    return mins + ":" + secs;
-  };
-
   handleSound = (seconds) => {
     if (
       [1, 2, 3].includes(seconds) &&
@@ -94,15 +86,13 @@ export class Timer extends Component {
   };
 
   render() {
-    let { seconds, duration, time } = this.state;
+    let { seconds, duration } = this.state;
     let timerState = this.getTimerState();
 
-    if (timerState !== "Creating")
-      document.title = "Pomodoro - " + this.getFormattedTime(seconds);
+    document.title = "Pomodoro - " + formatTime(seconds);
 
     let progression = 1 - seconds / duration;
-    let formattedTime = this.getFormattedTime(seconds);
-    let currentTime = this.getFormattedTime(time);
+    let formattedTime = formatTime(seconds);
 
     this.handleSound(seconds);
 
@@ -128,9 +118,7 @@ export class Timer extends Component {
         <div className="w-2/3 my-32 mx-auto">
           <div className="flex w-full justify-between items-end">
             <h1 className="big-text text-green-900">{formattedTime}</h1>
-            {!!time && (
-              <h1 className="text-6xl text-green-700">{currentTime}</h1>
-            )}
+            <Clock></Clock>
           </div>
           <div className="w-full h-px bg-green-800"></div>
           <div className="w-full h-px bg-green-800"></div>
