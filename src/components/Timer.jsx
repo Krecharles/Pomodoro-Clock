@@ -3,8 +3,8 @@ import UIfx from "uifx";
 import sound1 from "../assets/sound1.mp3";
 import sound2 from "../assets/sound2.mp3";
 import { MyButton } from "./Components";
-import { Clock } from "./Clock";
 import { formatTime } from "../formatter";
+import { TimeDisplayer } from "./TimeDisplayer";
 
 const s1 = new UIfx(sound1);
 const s2 = new UIfx(sound2);
@@ -19,7 +19,6 @@ export class Timer extends Component {
   playedTimeStamps = [];
 
   componentDidMount() {
-    console.log("Timer did mount");
     this.update();
     setInterval(this.update, 1000);
     this.resetTimer();
@@ -91,9 +90,6 @@ export class Timer extends Component {
 
     document.title = "Pomodoro - " + formatTime(seconds);
 
-    let progression = 1 - seconds / duration;
-    let formattedTime = formatTime(seconds);
-
     this.handleSound(seconds);
 
     if (!this.mouseActive && timerState === "Going")
@@ -115,18 +111,8 @@ export class Timer extends Component {
             </React.Fragment>
           )}
         </div>
-        <div className="w-2/3 my-32 mx-auto">
-          <div className="flex w-full justify-between items-end">
-            <h1 className="big-text text-green-900">{formattedTime}</h1>
-            <Clock></Clock>
-          </div>
-          <div className="w-full h-px bg-green-800"></div>
-          <div className="w-full h-px bg-green-800"></div>
-          <div
-            className="h-2 bg-green-700"
-            style={{ width: progression * 100 + "%" }}
-          ></div>
-        </div>
+
+        <TimeDisplayer passedSeconds={seconds} totalSeconds={duration} />
 
         <div className="mb-8 flex justify-center h-20 items-center">
           {["Creating"].includes(timerState) && (
