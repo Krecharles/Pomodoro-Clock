@@ -16,7 +16,6 @@ export class Timer extends Component {
     seconds: 25 * 60,
     timerActive: false,
   };
-  playedTimeStamps = [];
 
   static contextType = MouseActiveContext;
 
@@ -38,51 +37,25 @@ export class Timer extends Component {
   update = () => {
     if (this.state.timerActive && this.state.seconds > 0) {
       this.setState({ seconds: this.state.seconds - 1 });
+      if ([1, 2, 3].includes(this.state.seconds)) s1.play(); // 1s delay
+      if (this.state.seconds === 0) s2.play();
     }
   };
 
-  startTimer = () => {
-    this.setState({ timerActive: true });
-  };
+  startTimer = () => this.setState({ timerActive: true });
 
-  pauseTimer = () => {
-    this.setState({ timerActive: false });
-  };
+  pauseTimer = () => this.setState({ timerActive: false });
 
-  resetTimer = () => {
+  resetTimer = () =>
     this.setState({ timerActive: false, seconds: this.state.duration });
-    document.title = "Pomodoro Clock";
-    this.playedTimeStamps = [];
-  };
 
-  setTimerDuration = (duration) => {
+  setTimerDuration = (duration) =>
     this.setState({ duration, seconds: duration, timerActive: false });
-  };
-
-  handleSound = (seconds) => {
-    if (
-      [1, 2, 3].includes(seconds) &&
-      !this.playedTimeStamps.includes(seconds)
-    ) {
-      this.playedTimeStamps.push(seconds);
-      s1.play();
-      console.log("Played Sound 1");
-    }
-    if (seconds === 0 && !this.playedTimeStamps.includes(0)) {
-      this.playedTimeStamps.push(0);
-      s2.play();
-      console.log("Played Sound 2");
-    }
-  };
 
   render() {
     let { seconds, duration } = this.state;
     let timerState = this.getTimerState();
     document.title = "Pomodoro - " + formatTime(seconds);
-
-    this.handleSound(seconds);
-
-    console.log("whhyy", this.context);
 
     if (!this.context && timerState === "Going")
       document.getElementById("root").style.cursor = "none";
