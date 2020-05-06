@@ -5,6 +5,7 @@ import sound2 from "../assets/sound2.mp3";
 import { MyButton } from "./Components";
 import { formatTime } from "../formatter";
 import { TimeDisplayer } from "./TimeDisplayer";
+import { MouseActiveContext } from "./ActiveHandler";
 
 const s1 = new UIfx(sound1);
 const s2 = new UIfx(sound2);
@@ -15,8 +16,9 @@ export class Timer extends Component {
     seconds: 25 * 60,
     timerActive: false,
   };
-  mouseActive = false;
   playedTimeStamps = [];
+
+  static contextType = MouseActiveContext;
 
   componentDidMount() {
     this.update();
@@ -57,17 +59,6 @@ export class Timer extends Component {
     this.setState({ duration, seconds: duration, timerActive: false });
   };
 
-  setMouseMove = (e) => {
-    e.preventDefault();
-    this.mouseActive = true;
-
-    let timeout;
-    (() => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => (this.mouseActive = false), 5000);
-    })();
-  };
-
   handleSound = (seconds) => {
     if (
       [1, 2, 3].includes(seconds) &&
@@ -87,17 +78,18 @@ export class Timer extends Component {
   render() {
     let { seconds, duration } = this.state;
     let timerState = this.getTimerState();
-
     document.title = "Pomodoro - " + formatTime(seconds);
 
     this.handleSound(seconds);
 
-    if (!this.mouseActive && timerState === "Going")
+    console.log("whhyy", this.context);
+
+    if (!this.context && timerState === "Going")
       document.getElementById("root").style.cursor = "none";
     else document.getElementById("root").style.cursor = "auto";
 
     return (
-      <div className="w-full" onMouseMove={this.setMouseMove}>
+      <div className="w-full">
         <div className="flex justify-center h-20 items-center">
           {["Creating", "Finished"].includes(timerState) && (
             <React.Fragment>
@@ -129,7 +121,7 @@ export class Timer extends Component {
             <div
               className={
                 "transition duration-1000 " +
-                (this.mouseActive ? "" : "opacity-0 hover:opacity-100")
+                (this.context ? "" : "opacity-0 hover:opacity-100")
               }
             >
               <MyButton onClick={this.pauseTimer}>Pause</MyButton>
