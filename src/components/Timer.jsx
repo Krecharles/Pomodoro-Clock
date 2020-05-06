@@ -6,6 +6,7 @@ import { MyButton } from "./Components";
 import { formatTime } from "../formatter";
 import { TimeDisplayer } from "./TimeDisplayer";
 import { MouseActiveContext } from "./ActiveHandler";
+import { DurationPicker } from "./DurationPicker";
 
 const s1 = new UIfx(sound1);
 const s2 = new UIfx(sound2);
@@ -72,7 +73,7 @@ export class Timer extends Component {
               <MyButton onClick={() => this.setTimerDuration(5 * 60)}>
                 5:00
               </MyButton>
-              {/* <MyButton>Custom</MyButton> */}
+              <DurationPicker setTimerDuration={this.setTimerDuration} />
             </React.Fragment>
           )}
         </div>

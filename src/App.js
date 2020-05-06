@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import "./tailwind.generated.css";
 import MainPage from "./components/MainPage";
 
