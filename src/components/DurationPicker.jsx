@@ -14,7 +14,7 @@ export const DurationPicker = ({ setTimerDuration }) => {
   };
   return (
     <input
-      className="appearance-none placeholder-green-400 shadow bg-green-700 mx-8 w-40 py-3 rounded-md space-y-1 text-3xl text-green-400 focus:outline-none select-none text-center"
+      className="appearance-none my-4 placeholder-green-400 shadow bg-green-700 mx-8 w-40 py-3 rounded-md text-3xl text-green-400 focus:outline-none select-none text-center"
       placeholder="Custom"
       value={value}
       onChange={handleChange}

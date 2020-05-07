@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { formatTime } from "../formatter";
 
-export const Clock = () => {
+export const Clock = ({ className }) => {
   const [time, setTime] = useState();
   let update = () => {
     let d = new Date();
@@ -11,5 +11,5 @@ export const Clock = () => {
     update();
     setInterval(update, 1000);
   }, []);
-  return <h1 className="text-6xl text-green-700">{time}</h1>;
+  return <h1 className={"text-6xl text-green-700 " + className}>{time}</h1>;
 };

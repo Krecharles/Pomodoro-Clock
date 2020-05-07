@@ -62,25 +62,30 @@ export class Timer extends Component {
       document.getElementById("root").style.cursor = "none";
     else document.getElementById("root").style.cursor = "auto";
 
+    const temp = ["Creating", "Finished"].includes(timerState)
+      ? "visible"
+      : "invisible";
+
     return (
       <div className="w-full">
-        <div className="flex justify-center h-20 items-center">
-          {["Creating", "Finished"].includes(timerState) && (
-            <React.Fragment>
-              <MyButton onClick={() => this.setTimerDuration(25 * 60)}>
-                25:00
-              </MyButton>
-              <MyButton onClick={() => this.setTimerDuration(5 * 60)}>
-                5:00
-              </MyButton>
-              <DurationPicker setTimerDuration={this.setTimerDuration} />
-            </React.Fragment>
-          )}
+        {/* <div className="flex justify-center h-20 items-center"> */}
+        <div
+          className={
+            "flex flex-col items-center md:flex-row justify-center " + temp
+          }
+        >
+          <MyButton onClick={() => this.setTimerDuration(25 * 60)}>
+            25:00
+          </MyButton>
+          <MyButton onClick={() => this.setTimerDuration(5 * 60)}>
+            5:00
+          </MyButton>
+          <DurationPicker setTimerDuration={this.setTimerDuration} />
         </div>
 
         <TimeDisplayer passedSeconds={seconds} totalSeconds={duration} />
 
-        <div className="mb-8 flex justify-center h-20 items-center">
+        <div className="flex justify-center items-center">
           {["Creating"].includes(timerState) && (
             <MyButton
               onClick={() => {
@@ -102,7 +107,7 @@ export class Timer extends Component {
             </div>
           )}
           {timerState === "Paused" && (
-            <div>
+            <div className="flex flex-col sm:flex-row justify-center">
               <MyButton onClick={this.startTimer}>Continue</MyButton>
               <MyButton onClick={this.resetTimer}>Reset</MyButton>
             </div>
