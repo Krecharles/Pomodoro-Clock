@@ -1,12 +1,14 @@
 import React from "react";
-import { formatTime } from "../formatter";
+import { formatTimeMinSec } from "../formatter";
 import { Clock } from "./Clock";
 
 export const TimeDisplayer = ({ passedSeconds, totalSeconds }) => {
   return (
-    <div className="w-2/3 my-16 lg:my-32 mx-auto">
+    <div className="w-2/3 my-16 lg:my-24 mx-auto">
       <div className="flex w-full justify-center md:justify-between items-end">
-        <h1 className="big-text text-green-900">{formatTime(passedSeconds)}</h1>
+        <h1 className="big-text text-green-900">
+          {formatTimeMinSec(passedSeconds)}
+        </h1>
         <Clock className="hidden md:block"></Clock>
       </div>
       <div className="w-full h-px bg-green-800"></div>

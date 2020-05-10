@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { formatTime } from "../formatter";
+import { formatTimeMinSec } from "../formatter";
 
 export const Clock = ({ className }) => {
   const [time, setTime] = useState();
   let update = () => {
     let d = new Date();
-    setTime(formatTime(d.getHours() * 60 + d.getMinutes()));
+    setTime(formatTimeMinSec(d.getHours() * 60 + d.getMinutes()));
   };
   useEffect(() => {
     update();

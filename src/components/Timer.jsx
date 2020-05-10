@@ -3,10 +3,12 @@ import UIfx from "uifx";
 import sound1 from "../assets/sound1.mp3";
 import sound2 from "../assets/sound2.mp3";
 import { MyButton } from "./Components";
-import { formatTime } from "../formatter";
+import { formatTimeMinSec } from "../formatter";
 import { TimeDisplayer } from "./TimeDisplayer";
 import { MouseActiveContext } from "./ActiveHandler";
 import { DurationPicker } from "./DurationPicker";
+import { addSession } from "../persitance";
+import { TotalDurationDisplayer } from "./TotalDurationDisplayer";
 
 const s1 = new UIfx(sound1);
 const s2 = new UIfx(sound2);
@@ -38,6 +40,9 @@ export class Timer extends Component {
   update = () => {
     if (this.state.timerActive && this.state.seconds > 0) {
       this.setState({ seconds: this.state.seconds - 1 });
+      if (this.state.seconds === 1) {
+        addSession(this.state.duration);
+      }
       if ([1, 2, 3].includes(this.state.seconds)) s1.play(); // 1s delay
       if (this.state.seconds === 0) s2.play();
     }
@@ -56,7 +61,7 @@ export class Timer extends Component {
   render() {
     let { seconds, duration } = this.state;
     let timerState = this.getTimerState();
-    document.title = "Pomodoro - " + formatTime(seconds);
+    document.title = "Pomodoro - " + formatTimeMinSec(seconds);
 
     if (!this.context && timerState === "Going")
       document.getElementById("root").style.cursor = "none";
@@ -67,52 +72,57 @@ export class Timer extends Component {
       : "invisible";
 
     return (
-      <div className="w-full absolute h-screen flex flex-col justify-center">
-        <div
-          className={
-            "flex flex-col items-center md:flex-row justify-center " + temp
-          }
-        >
-          <MyButton onClick={() => this.setTimerDuration(25 * 60)}>
-            25:00
-          </MyButton>
-          <MyButton onClick={() => this.setTimerDuration(5 * 60)}>
-            5:00
-          </MyButton>
-          <DurationPicker setTimerDuration={this.setTimerDuration} />
-        </div>
-
-        <TimeDisplayer passedSeconds={seconds} totalSeconds={duration} />
-
-        <div className="flex justify-center items-center h-20">
-          {["Creating"].includes(timerState) && (
-            <MyButton
-              onClick={() => {
-                this.resetTimer();
-                this.startTimer();
-              }}
-            >
-              Start
+      <React.Fragment>
+        <div className="w-full absolute h-screen flex flex-col justify-center">
+          <div
+            className={
+              "flex flex-col items-center md:flex-row justify-center " + temp
+            }
+          >
+            <MyButton onClick={() => this.setTimerDuration(25 * 60)}>
+              25:00
             </MyButton>
-          )}
-          {timerState === "Going" && (
-            <div
-              className={
-                "transition duration-1000 " +
-                (this.context ? "" : "opacity-0 hover:opacity-100")
-              }
-            >
-              <MyButton onClick={this.pauseTimer}>Pause</MyButton>
-            </div>
-          )}
-          {timerState === "Paused" && (
-            <div className="flex flex-col sm:flex-row justify-center">
-              <MyButton onClick={this.startTimer}>Continue</MyButton>
-              <MyButton onClick={this.resetTimer}>Reset</MyButton>
-            </div>
-          )}
+            <MyButton onClick={() => this.setTimerDuration(5 * 60)}>
+              5:00
+            </MyButton>
+            <DurationPicker setTimerDuration={this.setTimerDuration} />
+          </div>
+
+          <TimeDisplayer passedSeconds={seconds} totalSeconds={duration} />
+
+          <div className="flex justify-center items-center h-20">
+            {["Creating"].includes(timerState) && (
+              <MyButton
+                onClick={() => {
+                  this.resetTimer();
+                  this.startTimer();
+                }}
+              >
+                Start
+              </MyButton>
+            )}
+            {timerState === "Going" && (
+              <div
+                className={
+                  "transition duration-1000 " +
+                  (this.context ? "" : "opacity-0 hover:opacity-100")
+                }
+              >
+                <MyButton onClick={this.pauseTimer}>Pause</MyButton>
+              </div>
+            )}
+            {timerState === "Paused" && (
+              <div className="flex flex-col sm:flex-row justify-center">
+                <MyButton onClick={this.startTimer}>Continue</MyButton>
+                <MyButton onClick={this.resetTimer}>Reset</MyButton>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+        {(timerState === "Creating" || timerState === "Finished") && (
+          <TotalDurationDisplayer></TotalDurationDisplayer>
+        )}
+      </React.Fragment>
     );
   }
 }
