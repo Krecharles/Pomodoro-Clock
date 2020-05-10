@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/Pomodoro-Clock/static/css/main.3cf68a7d.chunk.css",
-    "main.js": "/Pomodoro-Clock/static/js/main.b81f0e84.chunk.js",
-    "main.js.map": "/Pomodoro-Clock/static/js/main.b81f0e84.chunk.js.map",
+    "main.js": "/Pomodoro-Clock/static/js/main.eedf722b.chunk.js",
+    "main.js.map": "/Pomodoro-Clock/static/js/main.eedf722b.chunk.js.map",
     "runtime-main.js": "/Pomodoro-Clock/static/js/runtime-main.d2d988e6.js",
     "runtime-main.js.map": "/Pomodoro-Clock/static/js/runtime-main.d2d988e6.js.map",
-    "static/js/2.605569c4.chunk.js": "/Pomodoro-Clock/static/js/2.605569c4.chunk.js",
-    "static/js/2.605569c4.chunk.js.map": "/Pomodoro-Clock/static/js/2.605569c4.chunk.js.map",
+    "static/js/2.6e79e545.chunk.js": "/Pomodoro-Clock/static/js/2.6e79e545.chunk.js",
+    "static/js/2.6e79e545.chunk.js.map": "/Pomodoro-Clock/static/js/2.6e79e545.chunk.js.map",
     "index.html": "/Pomodoro-Clock/index.html",
-    "precache-manifest.0ac035e792d7e4369607844d783abe36.js": "/Pomodoro-Clock/precache-manifest.0ac035e792d7e4369607844d783abe36.js",
+    "precache-manifest.838b5f44e51aee9da6dc390573a5e030.js": "/Pomodoro-Clock/precache-manifest.838b5f44e51aee9da6dc390573a5e030.js",
     "service-worker.js": "/Pomodoro-Clock/service-worker.js",
     "static/css/main.3cf68a7d.chunk.css.map": "/Pomodoro-Clock/static/css/main.3cf68a7d.chunk.css.map",
-    "static/js/2.605569c4.chunk.js.LICENSE.txt": "/Pomodoro-Clock/static/js/2.605569c4.chunk.js.LICENSE.txt",
+    "static/js/2.6e79e545.chunk.js.LICENSE.txt": "/Pomodoro-Clock/static/js/2.6e79e545.chunk.js.LICENSE.txt",
     "static/media/sound1.mp3": "/Pomodoro-Clock/static/media/sound1.812c7504.mp3",
     "static/media/sound2.mp3": "/Pomodoro-Clock/static/media/sound2.04054870.mp3"
   },
   "entrypoints": [
     "static/js/runtime-main.d2d988e6.js",
-    "static/js/2.605569c4.chunk.js",
+    "static/js/2.6e79e545.chunk.js",
     "static/css/main.3cf68a7d.chunk.css",
-    "static/js/main.b81f0e84.chunk.js"
+    "static/js/main.eedf722b.chunk.js"
   ]
 }
