@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import UIfx from "uifx";
 import sound1 from "../assets/sound1.mp3";
 import sound2 from "../assets/sound2.mp3";
 import { MyButton } from "./Components";
@@ -10,8 +9,8 @@ import { DurationPicker } from "./DurationPicker";
 import { addSession } from "../persitance";
 import { TotalDurationDisplayer } from "./TotalDurationDisplayer";
 
-const s1 = new UIfx(sound1);
-const s2 = new UIfx(sound2);
+var s1 = new Audio(sound1);
+var s2 = new Audio(sound2);
 
 export class Timer extends Component {
   state = {
@@ -43,8 +42,8 @@ export class Timer extends Component {
       if (this.state.seconds === 1) {
         addSession(this.state.duration);
       }
-      if ([1, 2, 3].includes(this.state.seconds)) s1.play(); // 1s delay
-      if (this.state.seconds === 0) s2.play();
+      if ([1, 2, 3].includes(this.state.seconds)) s1.play().catch(console.log); // 1s delay
+      if (this.state.seconds === 0) s2.play().catch(console.log);
     }
   };
 
