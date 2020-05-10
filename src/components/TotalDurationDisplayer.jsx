@@ -4,7 +4,7 @@ import { getTodayTotalTime } from "../persitance";
 export const TotalDurationDisplayer = () => {
   const totalTime = getTodayTotalTime();
   let hours = Math.floor(totalTime / 3600) + "";
-  let minutes = Math.floor(totalTime / 60) + "";
+  let minutes = (Math.floor(totalTime / 60) % 60) + "";
   return (
     <div className="absolute bottom-0 w-full">
       <h4 className="text-green-800 text-center mb-8">
