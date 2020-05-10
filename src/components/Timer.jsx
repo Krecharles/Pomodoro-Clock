@@ -67,8 +67,7 @@ export class Timer extends Component {
       : "invisible";
 
     return (
-      <div className="w-full">
-        {/* <div className="flex justify-center h-20 items-center"> */}
+      <div className="w-full absolute h-screen flex flex-col justify-center">
         <div
           className={
             "flex flex-col items-center md:flex-row justify-center " + temp
@@ -85,7 +84,7 @@ export class Timer extends Component {
 
         <TimeDisplayer passedSeconds={seconds} totalSeconds={duration} />
 
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center h-20">
           {["Creating"].includes(timerState) && (
             <MyButton
               onClick={() => {

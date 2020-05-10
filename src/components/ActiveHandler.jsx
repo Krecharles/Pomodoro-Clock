@@ -17,7 +17,7 @@ export const ActiveHandler = ({ children }) => {
   };
 
   return (
-    <div className="w-full" onMouseMove={setMouseMove}>
+    <div className="" onMouseMove={setMouseMove}>
       <MouseActiveContext.Provider value={mouseActive}>
         {children}
       </MouseActiveContext.Provider>

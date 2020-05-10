@@ -5,7 +5,7 @@ import { ActiveHandler } from "./ActiveHandler";
 class MainPage extends Component {
   render() {
     return (
-      <div className="flex flex-col h-screen bg-green-600 justify-center items-center">
+      <div className="h-screen bg-green-600">
         <ActiveHandler>
           <Timer></Timer>
         </ActiveHandler>
