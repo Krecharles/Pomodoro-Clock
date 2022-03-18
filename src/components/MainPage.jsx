@@ -5,7 +5,7 @@ import { ActiveHandler } from "./ActiveHandler";
 class MainPage extends Component {
   render() {
     return (
-      <div className="h-screen bg-green-600">
+      <div className="h-screen bg-gray-900">
         <ActiveHandler>
           <Timer></Timer>
         </ActiveHandler>

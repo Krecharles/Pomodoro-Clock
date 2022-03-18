@@ -11,5 +11,5 @@ export const Clock = ({ className }) => {
     update();
     setInterval(update, 1000);
   }, []);
-  return <h1 className={"text-6xl text-green-700 " + className}>{time}</h1>;
+  return <h1 className={"text-6xl text-gray-700 " + className}>{time}</h1>;
 };
